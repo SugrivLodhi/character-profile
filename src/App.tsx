@@ -1,20 +1,14 @@
 // App.tsx
 
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import MainComponent from "./MainComponent";
-import CharacterDetailsPage from "./components/CharacterDetailsPage";
+import React, { Suspense, lazy } from "react";
+import Routes from "./Routes/Index";
+
+
 const App: React.FC = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainComponent />} />
-        <Route
-          path="/character/:id"
-          element={<CharacterDetailsPage />}
-        />
-      </Routes>
-    </Router>
+    <Suspense fallback={<p>Loading...</p>}>
+      <Routes/>
+    </Suspense>
   );
 };
 
