@@ -1,28 +1,28 @@
 // CharacterDetailsPage.tsx
 
 import React from "react";
-import Layout from "./Layout";
 import useGetCharacterProfile from "../hooks/useGetProfile";
 import { fetchSingleCharacter } from "../services/apiService";
-import { useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Character } from "../types/profile";
+import Loader from "./common/Loader";
 
+const CharacterDetailsPage: React.FC = () => {
+  const { id } = useParams();
+  const { data, isLoading } = useGetCharacterProfile(() =>
+    fetchSingleCharacter(id)
+  );
+  const character = data as Character;
 
+  if (isLoading) return <Loader />;
 
-const CharacterDetailsPage: React.FC= (
-) => {
-  const {id} = useParams()
-  const {data,isLoading} = useGetCharacterProfile(()=>fetchSingleCharacter(id))
-  if(isLoading) return <div>Loading..</div>
-  const character = (data as Character)
   return (
-    <Layout>
-      <div className="container mx-auto p-4">
-          <div className="flex gap-7">
-           <div className="w-auto">
+    <div className="container mx-auto p-4">
+      <div className="flex gap-7">
+        <div className="w-auto">
           <img src={character?.image} alt={character?.name} className="mb-4" />
-          </div>
-          <div>
+        </div>
+        <div>
           <h1 className="text-2xl font-bold mb-4">{character?.name}</h1>
           <p>Status: {character?.status}</p>
           <p>Origin: {character?.origin.name}</p>
@@ -31,9 +31,7 @@ const CharacterDetailsPage: React.FC= (
           <h2 className="text-xl font-semibold mt-4">Episodes:</h2>
           <ul>
             {character?.episode?.map((episode, index) => (
-              <li key={episode}>
-                {episode}
-              </li>
+              <li key={episode}>{episode}</li>
             ))}
           </ul>
           <p>
@@ -42,10 +40,9 @@ const CharacterDetailsPage: React.FC= (
               {character?.url}
             </a>
           </p>
-          </div>
-          </div>
         </div>
-    </Layout>
+      </div>
+    </div>
   );
 };
 
