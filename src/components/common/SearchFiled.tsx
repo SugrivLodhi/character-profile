@@ -15,8 +15,8 @@ const SearchFiled: React.FC<SearchProps> = ({
   return (
     <div className="ml-4 w-full mb-7">
       <input
-        type="text"
-        placeholder="Search..."
+        type="search"
+        placeholder="Search by name"
         value={searchCharacter}
         onChange={handleChange}
         className="px-2 py-1 text-black rounded border"

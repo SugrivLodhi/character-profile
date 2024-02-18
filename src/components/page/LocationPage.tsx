@@ -23,7 +23,7 @@ const LocationPage = () => {
   }, [selectedOption]);
 
   return (
-    <div className="flex gap-6 flex-grow p-4 overflow-y-scroll">
+    <div className="flex gap-6 flex-col flex-grow p-4 overflow-y-scroll">
       <SelecLocation
         selectedOption={selectedOption}
         setSelectedOption={setSelectedOption}

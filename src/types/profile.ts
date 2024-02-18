@@ -22,7 +22,7 @@ interface Character {
 interface APIResponse {
     info: {
         count: number;
-        pages: number;
+        page: number;
         next: string | null;
         prev: string | null;
     };

@@ -4,7 +4,7 @@ type FetchCharacterFunction = () => Promise<APIResponse>;
 
 const useGetCharacterProfile = (
   fetchCharacter: FetchCharacterFunction,
-  params = ""
+  params=""
 ) => {
   const [data, setData] = useState<APIResponse | Character>();
   const [error, setError] = useState({});
