@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import {APIResponse,Character} from "../types/profile";
-type FetchCharacterFunction = () => Promise<APIResponse>
+import { APIResponse, Character } from "../types/profile";
+type FetchCharacterFunction = () => Promise<APIResponse>;
 
-const useGetCharacterProfile = (fetchCharacter:FetchCharacterFunction,page=1) => {
+const useGetCharacterProfile = (
+  fetchCharacter: FetchCharacterFunction,
+  params = ""
+) => {
   const [data, setData] = useState<APIResponse | Character>();
   const [error, setError] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -13,7 +16,7 @@ const useGetCharacterProfile = (fetchCharacter:FetchCharacterFunction,page=1) =>
         const respoonse = await fetchCharacter();
         setData(respoonse);
         setIsLoading(false);
-        setError({})
+        setError({});
       } catch (error: any) {
         setError(error);
       } finally {
@@ -21,7 +24,7 @@ const useGetCharacterProfile = (fetchCharacter:FetchCharacterFunction,page=1) =>
       }
     };
     fetchCharacterProfile();
-  }, [page]);
+  }, [params]);
 
   return {
     error,
