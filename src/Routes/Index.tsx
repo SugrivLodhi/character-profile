@@ -7,7 +7,7 @@ const Index = () => {
   return (
     <>
       {allRoute.map((route) => (
-        <Routes>
+        <Routes key={route.id}>
           <Route
             path={route.path}
             element={
