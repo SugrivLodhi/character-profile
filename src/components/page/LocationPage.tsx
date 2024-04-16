@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import CharacterCard from "../common/CharacterCard";
-import { fetchLocation } from "../../services/apiService";
 import SelecLocation from "../SelectLocation";
 import NotFound from "../common/NotFound";
+import { useFetchLocationBynameQuery } from "../../redux/apiSlice";
 
 const LocationPage = () => {
   const defaultOption = "1";
   const [selectedOption, setSelectedOption] = useState(defaultOption);
   const [data, setData] = useState<any>([]);
-
+ const { data:locationByname } = useFetchLocationBynameQuery(selectedOption ||"locationByname")
+ 
   useEffect(() => {
     const fetchAllData = async () => {
-      const data = await fetchLocation(selectedOption);
       let result = await Promise.all(
-        data?.residents?.map((v: any) => {
+        locationByname?.residents?.map((v: any) => {
           return fetch(v).then((res) => res.json());
         })
       );

@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import SelectEpisode from "../SelectEpisode";
 import CharacterCard from "../common/CharacterCard";
-import { fetchEpisode } from "../../services/apiService";
 import NotFound from "../common/NotFound";
+import { useFetchEpisodeByNameQuery, useFetchSingleCharaterQuery } from "../../redux/apiSlice";
 
 const EpisodePage = () => {
   const defaultOption = "1";
   const [selectedOption, setSelectedOption] = useState(defaultOption);
   const [data, setData] = useState<any>([]);
-
+  const {data:episodebyName} =  useFetchEpisodeByNameQuery(selectedOption || "episodeByName")
+  console.log("episodeby name",episodebyName)
+ const chaectorbyid =  useFetchSingleCharaterQuery(1)
+ console.log("first cha",chaectorbyid)
   useEffect(() => {
     const fetchAllData = async () => {
-      const data = await fetchEpisode(selectedOption);
-
       let result = await Promise.all(
-        data?.characters?.map((v: any) => {
+        episodebyName?.characters?.map((v:any) => {
           return fetch(v).then((res) => res.json());
         })
       );

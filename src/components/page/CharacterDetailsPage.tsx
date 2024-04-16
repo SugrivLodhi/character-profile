@@ -1,17 +1,13 @@
 import React from "react";
-import useGetCharacterProfile from "../../hooks/useGetProfile";
-import { fetchSingleCharacter } from "../../services/apiService";
 import { useParams } from "react-router-dom";
 import { Character } from "../../types/profile";
 import Loader from "../common/Loader";
+import { useFetchSingleCharaterQuery } from "../../redux/apiSlice";
 
 const CharacterDetailsPage: React.FC = () => {
   const { id } = useParams();
-  const { data, isLoading } = useGetCharacterProfile(() =>
-    fetchSingleCharacter(id)
-  );
+  const { data, isLoading } = useFetchSingleCharaterQuery(id)
   const character = data as Character;
-
   if (isLoading) return <Loader />;
 
   return (

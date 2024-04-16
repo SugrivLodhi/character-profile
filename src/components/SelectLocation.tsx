@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { fetchAllLocation } from "../services/apiService";
+import React from "react";
+import { useFetchLocationQuery } from "../redux/apiSlice";
 interface SelectDropdownProps {
   selectedOption: string;
   setSelectedOption: (str: string) => void;
@@ -9,19 +9,11 @@ const SelecLocation = ({
   selectedOption,
   setSelectedOption,
 }: SelectDropdownProps) => {
-  const [allLocation, setAllLocation] = useState([]);
+ const {data} =   useFetchLocationQuery("location")
   const handleChange = (e: any) => {
     setSelectedOption(e.target.value);
   };
-  useEffect(() => {
-    fetchAllLocation()
-      .then((data) => {
-        setAllLocation(data.results);
-      })
-      .catch((err: any) => {
-        console.error(err);
-      });
-  }, []);
+ 
   return (
     <div className="w-64">
       <h3>Filter by Location</h3>
@@ -31,7 +23,7 @@ const SelecLocation = ({
         onChange={handleChange}
       >
         <option value="1">Select a Location </option>
-        {allLocation?.map((v: any) => (
+        {data?.results?.map((v: any) => (
           <option value={v.id}>{v?.name}</option>
         ))}
       </select>

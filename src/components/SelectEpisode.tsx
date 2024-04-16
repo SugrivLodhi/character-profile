@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { fetchAllEpisode } from "../services/apiService";
+import React from "react";
+import { useFetchEpisodeQuery } from "../redux/apiSlice";
 interface SelectDropdownProps {
   selectedOption: string;
   setSelectedOption: (str: string) => void;
@@ -9,15 +9,11 @@ const SelectEpisode = ({
   selectedOption,
   setSelectedOption,
 }: SelectDropdownProps) => {
-  const [allEpisode, setAllEpisode] = useState([]);
+  const {data} = useFetchEpisodeQuery("episode")
   const handleChange = (e: any) => {
     setSelectedOption(e.target.value);
   };
-  useEffect(() => {
-    fetchAllEpisode().then((data) => {
-      setAllEpisode(data.results);
-    });
-  }, []);
+ 
   return (
     <div className="w-64">
       <h3>Filter by Episode</h3>
@@ -27,7 +23,7 @@ const SelectEpisode = ({
         onChange={handleChange}
       >
         <option value="1">Select an Episode</option>
-        {allEpisode?.map((v: any) => (
+        {data?.results?.map((v: any) => (
           <option value={v.id}>{v?.episode}</option>
         ))}
       </select>
