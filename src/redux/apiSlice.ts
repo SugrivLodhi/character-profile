@@ -6,18 +6,23 @@ export const apiSlice = createApi({
   endpoints: (builder) => ({
     fetchLocation: builder.query({
       query: () => `location`,
+      keepUnusedDataFor: 60, 
     }),
     fetchLocationByname: builder.query({
       query: (params) => `/location/${params}`,
+      keepUnusedDataFor: 60, 
     }),
     fetchEpisode: builder.query({
       query: () => `episode`,
+      keepUnusedDataFor: 60, 
     }),
     fetchEpisodeByName: builder.query({
       query: (params) => `/episode/${params}`,
+      keepUnusedDataFor: 60, 
     }),
     fetchSingleCharater: builder.query({
-      query: (id) => `/character/${id}`
+      query: (id) => `/character/${id}`,
+      keepUnusedDataFor: 60, 
     })
   }),
 });

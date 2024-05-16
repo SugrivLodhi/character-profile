@@ -9,9 +9,6 @@ const EpisodePage = () => {
   const [selectedOption, setSelectedOption] = useState(defaultOption);
   const [data, setData] = useState<any>([]);
   const {data:episodebyName} =  useFetchEpisodeByNameQuery(selectedOption || "episodeByName")
-  console.log("episodeby name",episodebyName)
- const chaectorbyid =  useFetchSingleCharaterQuery(1)
- console.log("first cha",chaectorbyid)
   useEffect(() => {
     const fetchAllData = async () => {
       let result = await Promise.all(
